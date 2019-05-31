@@ -22,10 +22,30 @@ class Page(models.Model):
 
 
 class TextUnit(models.Model):
+    SECTION_CHOICES = (
+    ('Front Cover', 'Front Cover'),
+    ('Frontispiece', 'Frontispiece'),
+    ('Title Page', 'Title Page'),
+    ('Summary Statement', 'Summary Statement'),
+    ('Preface', 'Preface'),
+    ('Report', 'Report'),
+    ('Introductory', 'Introductory'),
+    ('Rudiments of Music', 'Rudiments of Music'),
+    ('Part II', 'Part II'),
+    ('Part III', 'Part III'),
+    ('Appendix 1850', 'Appendix 1850'),
+    ('Appendix 1859', 'Appendix 1859'),
+    ('Appendix 1869', 'Appendix 1869'),
+    ('Appendix 1911', 'Appendix 1911'),
+    ('Index', 'Index'),
+    ('Back Cover', 'Back Cover'),
+    )
+
+
     page = models.ForeignKey('Page', blank=False, null=True, on_delete=models.CASCADE, help_text='Relevant page from Pages table')
     seq = models.PositiveIntegerField(blank=False, null=True, help_text='Number indicating where on the page this text unit falls')
     value = models.TextField(blank=False, null=True, help_text='The content of the unit, or a description of it')
-    section = models.CharField(max_length=255, blank=False, null=True, help_text='Name of the section of the book')
+    section = models.CharField(max_length=255, blank=False, null=True, help_text='Name of the section of the book', choices=SECTION_CHOICES)
     subsection = models.CharField(max_length=255, blank=True, null=True, help_text='Name of a subsection of the book, e.g. a section of the Rudiments')
 
     def __str__(self):
