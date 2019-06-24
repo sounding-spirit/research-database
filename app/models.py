@@ -102,7 +102,7 @@ class Book(models.Model):
     )
 
     title = models.CharField(max_length=255, blank=False, null=True)
-    abbreviated_title = models.CharField(max_length=10, blank=False, null=True)
+    abbreviated_title = models.CharField(max_length=255, blank=False, null=True)
     year_range_start = models.PositiveIntegerField(validators=[MinValueValidator(1800), MaxValueValidator(2000)], help_text='Year of publication if known or first possible year of publication otherwise', blank=True, null=True)
     year_certainty = models.CharField(max_length=255, help_text='If year of publication is uncertain, use circa.', blank=True, null=True, choices=YEAR_CERTAINTY_CHOICES)
     year_range_end = models.PositiveIntegerField(validators=[MinValueValidator(1800), MaxValueValidator(2000)], help_text='Last possible year of publication if precise date not known', blank=True, null=True)
