@@ -93,7 +93,8 @@ class Song(models.Model):
     lines = models.PositiveIntegerField(blank=False, null=True, choices=LINES_CHOICES)
 
     def __str__(self):
-        return self.title
+        return "%s - %s " % (self.title, self.page_start.number)
+
 
 
 class Book(models.Model):
@@ -194,6 +195,11 @@ class Contribution(models.Model):
         ('composer', 'composer'),
         ('arranger', 'arranger'),
         ('hymnwriter', 'hymnwriter'),
+        ('hymn revisor', 'hymn revisor'),
+        ('hymn selector', 'hymn selector'),
+        ('alto', 'alto'),
+        ('treble', 'treble'),
+
     )
 
     song = models.ForeignKey('Song', blank=False, null=True, on_delete=models.CASCADE)
