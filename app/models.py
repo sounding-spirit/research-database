@@ -77,6 +77,7 @@ class TextUnit(models.Model):
 
 class Song(models.Model):
     LINES_CHOICES = (
+        (1, '1'),
         (3, '3'),
         (4, '4'),
     )
