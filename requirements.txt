@@ -1,3 +1,4 @@
 Django==2.1.8
 mysqlclient==1.4.2.post1
 PyMySQL
+django-import-export

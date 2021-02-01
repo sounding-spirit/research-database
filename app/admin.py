@@ -1,6 +1,14 @@
 from django.contrib import admin
 from app.models import Page, TextUnit, Song, Book, Contributor, SourceRelationship, OSHPrintingSequence, PrintingRelationship, Contribution
 from app.forms import SourceRelationshipAdminForm, PrintingRelationshipAdminForm
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
+class SongResource(resources.ModelResource):
+
+    class Meta:
+        model = Song
+        fields = ('id', 'page_start__number', 'page_end__number', 'page_placement', 'title', 'lines')
 
 class PageAdmin(admin.ModelAdmin):
     list_display = ('seq', 'number', 'book', 'typography')
@@ -8,8 +16,9 @@ class PageAdmin(admin.ModelAdmin):
 class TextUnitAdmin(admin.ModelAdmin):
     list_display = ('page', 'seq', 'value', 'section', 'subsection')
 
-class SongAdmin(admin.ModelAdmin):
-    list_display = ('page_start_id', 'page_end_id', 'title', 'lines')
+class SongAdmin(ImportExportModelAdmin):
+    resource_class = SongResource
+    list_display = ('id', 'page_start', 'page_end', 'title', 'lines')
 
 class BookAdmin(admin.ModelAdmin):
     list_display = ('abbreviated_title', 'year_range_start', 'year_range_end', 'year_certainty', 'place', 'publisher', 'author_editor')
