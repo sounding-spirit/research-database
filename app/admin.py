@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app.models import Page, TextUnit, Song, Book, Contributor, TextSourceRelationship, OSHPrintingSequence, PrintingRelationship, Contribution, Person, SongSourceRelationship
+from app.models import Page, TextUnit, Song, Book, Contributor, TextSourceRelationship, OSHPrintingSequence, PrintingRelationship, Contribution, Person, SongSourceRelationship, OSHAddedAlto
 from app.forms import TextSourceRelationshipAdminForm, PrintingRelationshipAdminForm
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
@@ -46,6 +46,9 @@ class PersonAdmin(admin.ModelAdmin):
 class SongSourceRelationshipAdmin(admin.ModelAdmin):
     list_display = ('id', 'song', 'book', 'sr_type', 'title_in_source', 'page_in_source')
 
+class OSHAddedAltoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'song')
+
 admin.site.register(Page, PageAdmin)
 admin.site.register(TextUnit, TextUnitAdmin)
 admin.site.register(Song, SongAdmin)
@@ -57,3 +60,4 @@ admin.site.register(PrintingRelationship, PrintingRelationshipAdmin)
 admin.site.register(Contribution, ContributionAdmin)
 admin.site.register(Person, PersonAdmin)
 admin.site.register(SongSourceRelationship, SongSourceRelationshipAdmin)
+admin.site.register(OSHAddedAlto, OSHAddedAltoAdmin)

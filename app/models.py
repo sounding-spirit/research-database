@@ -252,6 +252,23 @@ class SongSourceRelationship(models.Model):
     attribution_music_in_source = models.CharField(max_length=255, blank=True, null=True)
 
 
+class OSHAddedAlto(models.Model):
+    song = models.ForeignKey('Song', blank=False, null=True, on_delete=models.CASCADE)
+    page_in_ch = models.PositiveIntegerField(blank=True, null=True)
+    attributed_person_in_ch = models.ForeignKey('Person', blank=True, null=True, related_name='attritbuted_person_in_ch', on_delete=models.CASCADE)
+    attribution_in_ch = models.CharField(max_length=255, blank=True, null=True)
+    page_in_cooper_sh = models.PositiveIntegerField(blank=True, null=True)
+    attributed_person_in_cooper_sh = models.ForeignKey('Person', blank=True, null=True, related_name='attritbuted_person_in_cooper_sh', on_delete=models.CASCADE)
+    attribution_in_cooper_sh = models.CharField(max_length=255, blank=True, null=True)
+    page_in_white_sh = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True)
+    attributed_person_in_white_sh = models.ForeignKey('Person', blank=True, null=True, related_name='attributed_person_in_white_sh', on_delete=models.CASCADE)
+    attribution_in_white_sh = models.CharField(max_length=255, blank=True, null=True)
+    page_in_nhc = models.PositiveIntegerField(blank=True, null=True)
+    attributed_person_in_nhc = models.ForeignKey('Person', blank=True, null=True, related_name='attributed_person_in_nhc', on_delete=models.CASCADE)
+    attribution_in_nhc = models.CharField(max_length=255, blank=True, null=True)
+
+
+
 class OSHPrintingSequence(models.Model):
     sequence_name = models.CharField(max_length=255, blank=False, null=True)
     book_1 = models.ForeignKey('Book', help_text='ID of a printing unless first printing', blank=True, null=True, related_name = 'book_1', on_delete=models.CASCADE)
