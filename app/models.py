@@ -78,6 +78,7 @@ class TextUnit(models.Model):
 class Song(models.Model):
     LINES_CHOICES = (
         (1, '1'),
+        (2, '2'),
         (3, '3'),
         (4, '4'),
     )
@@ -87,15 +88,60 @@ class Song(models.Model):
         ('b', 'b'),
     )
 
+    KEY_CHOICES = (
+        ('A', 'A'),
+        ('Aflat', 'A♭'),
+        ('Asharp', 'A♯'),
+        ('B', 'B'),
+        ('Bflat', 'B♭'),
+        ('C', 'C'),
+        ('Csharp', 'C♯'),
+        ('D', 'D'),
+        ('Dflat', 'D♭'),
+        ('Dsharp', 'D♯'),
+        ('Eflat', 'E♭'),
+        ('E', 'E'),
+        ('F', 'F'),
+        ('Fsharp', 'F♯'),
+        ('G', 'G'),
+        ('Gflat', 'G♭'),
+        ('Gsharp', 'G♯'),
+    )
+
+    MODE_CHOICES = (
+        ('major', 'major'),
+        ('minor', 'minor'),
+        ('multiple', 'multiple'),
+    )
+
     page_start = models.ForeignKey('Page', blank=False, null=True, related_name='page_start', help_text='Starting page of song from Pages', on_delete=models.CASCADE)
     page_end = models.ForeignKey('Page', blank=False, null=True, related_name = 'page_end', help_text='Last page of song from Pages; should be same as the page start if a half-page or one-page song', on_delete=models.CASCADE)
     page_placement = models.CharField(max_length=1, blank=True, null=True, choices=PAGE_PLACEMENT_CHOICES, help_text='Only has a value if it is one of two songs that begin on a page. Use "A" for top, "B" for bottom.')
     title = models.CharField(max_length=255, blank=False, null=True)
     lines = models.PositiveIntegerField(blank=False, null=True, choices=LINES_CHOICES)
+    key = models.CharField(max_length=255, blank=True, null=True, choices=KEY_CHOICES)
+    mode = models.CharField(max_length=255, blank=True, null=True, choices=MODE_CHOICES)
+    attributed_person_text = models.ForeignKey('Person', blank=True, null=True, related_name='attributed_person_text', on_delete=models.CASCADE)
+    attributed_person_music = models.ForeignKey('Person', blank=True, null=True, related_name='attributed_person_music', on_delete=models.CASCADE)
+    attribution_text = models.CharField(max_length=255, blank=True, null=True)
+    attribution_music = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return "%s - %s " % (self.title, self.page_start.number)
 
+
+
+class Person(models.Model):
+    last_name = models.CharField(max_length=255, blank=False, null=True)
+    first_middle_name = models.CharField(max_length=255, blank=True, null=True)
+    female = models.BooleanField(max_length=255, blank=False, null=True, default=False)
+    alternate_spellings = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return "%s %s" % (self.first_middle_name, self.last_name)
+
+    class Meta:
+        verbose_name_plural = 'People'
 
 
 class Book(models.Model):

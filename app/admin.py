@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app.models import Page, TextUnit, Song, Book, Contributor, SourceRelationship, OSHPrintingSequence, PrintingRelationship, Contribution
+from app.models import Page, TextUnit, Song, Book, Contributor, SourceRelationship, OSHPrintingSequence, PrintingRelationship, Contribution, Person
 from app.forms import SourceRelationshipAdminForm, PrintingRelationshipAdminForm
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
@@ -40,6 +40,9 @@ class PrintingRelationshipAdmin(admin.ModelAdmin):
 class ContributionAdmin(admin.ModelAdmin):
     list_display = ('song', 'contributor', 'contribution')
 
+class PersonAdmin(admin.ModelAdmin):
+    list_display = ('last_name', 'first_middle_name', 'female', 'alternate_spellings')
+
 admin.site.register(Page, PageAdmin)
 admin.site.register(TextUnit, TextUnitAdmin)
 admin.site.register(Song, SongAdmin)
@@ -49,3 +52,4 @@ admin.site.register(SourceRelationship, SourceRelationshipAdmin)
 admin.site.register(OSHPrintingSequence, OSHPrintingSequenceAdmin)
 admin.site.register(PrintingRelationship, PrintingRelationshipAdmin)
 admin.site.register(Contribution, ContributionAdmin)
+admin.site.register(Person, PersonAdmin)
