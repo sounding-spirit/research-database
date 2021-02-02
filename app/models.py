@@ -268,6 +268,48 @@ class OSHAddedAlto(models.Model):
     attribution_in_nhc = models.CharField(max_length=255, blank=True, null=True)
 
 
+class AltoSourceRelationship(models.Model):
+    SR_TYPE_CHOICES = (
+        ('identical', 'identical'),
+        ('near identical', 'near identical'),
+        ('adapted', 'adapted'),
+    )
+
+    KEY_IN_SOURCE_CHOICES = (
+        ('A', 'A'),
+        ('Aflat', 'A♭'),
+        ('Asharp', 'A♯'),
+        ('B', 'B'),
+        ('Bflat', 'B♭'),
+        ('C', 'C'),
+        ('Csharp', 'C♯'),
+        ('D', 'D'),
+        ('Dflat', 'D♭'),
+        ('Dsharp', 'D♯'),
+        ('Eflat', 'E♭'),
+        ('E', 'E'),
+        ('F', 'F'),
+        ('Fsharp', 'F♯'),
+        ('G', 'G'),
+        ('Gflat', 'G♭'),
+        ('Gsharp', 'G♯'),
+    )
+
+    MODE_CHOICES = (
+        ('major', 'major'),
+        ('minor', 'minor'),
+        ('multiple', 'multiple'),
+    )
+
+    osh_added_alto = models.ForeignKey('OSHAddedAlto', blank=False, null=True, on_delete=models.CASCADE)
+    book = models.ForeignKey('Book', blank=False, null=True, on_delete=models.CASCADE)
+    sr_type = models.CharField(max_length=255, blank=True, null=True, help_text='Type of relationship', choices=SR_TYPE_CHOICES)
+    page_in_source = models.CharField(max_length=255, blank=True, null=True)
+    key_in_source = models.CharField(max_length=255, blank=True, null=True, choices=KEY_IN_SOURCE_CHOICES)
+    mode_in_source = models.CharField(max_length=255, blank=True, null=True, choices=MODE_CHOICES)
+    attributed_person_in_source = models.ForeignKey('Person', blank=True, null=True, on_delete=models.CASCADE)
+    attribution_in_source = models.CharField(max_length=255, blank=True, null=True)
+
 
 class OSHPrintingSequence(models.Model):
     sequence_name = models.CharField(max_length=255, blank=False, null=True)
