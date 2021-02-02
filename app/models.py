@@ -204,6 +204,54 @@ class TextSourceRelationship(models.Model):
     sr_category = models.CharField(max_length=255, help_text='Category of relationship', blank=False, null=True, choices=CATEGORY_CHOICES)
     sr_type = models.CharField(max_length=255, help_text='Type of the relationship', blank=True, null=True, choices=TYPE_CHOICES)
 
+
+class SongSourceRelationship(models.Model):
+    SR_TYPE_CHOICES = (
+        ('identical', 'identical'),
+        ('near identical', 'near identical'),
+        ('adapted', 'adapted'),
+    )
+
+    KEY_IN_SOURCE_CHOICES = (
+        ('A', 'A'),
+        ('Aflat', 'A♭'),
+        ('Asharp', 'A♯'),
+        ('B', 'B'),
+        ('Bflat', 'B♭'),
+        ('C', 'C'),
+        ('Csharp', 'C♯'),
+        ('D', 'D'),
+        ('Dflat', 'D♭'),
+        ('Dsharp', 'D♯'),
+        ('Eflat', 'E♭'),
+        ('E', 'E'),
+        ('F', 'F'),
+        ('Fsharp', 'F♯'),
+        ('G', 'G'),
+        ('Gflat', 'G♭'),
+        ('Gsharp', 'G♯'),
+    )
+
+    LINES_IN_SOURCE_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+    )
+
+    song = models.ForeignKey('Song', blank=False, null=True, on_delete=models.CASCADE)
+    book = models.ForeignKey('Book', help_text='Book that serves as source for song', blank=False, null=True, on_delete=models.CASCADE)
+    sr_type = models.CharField(max_length=255, blank=True, null=True, help_text='Type of relationship', choices=SR_TYPE_CHOICES)
+    title_in_source = models.CharField(max_length=255, blank=True, null=True)
+    page_in_source = models.CharField(max_length=255, blank=True, null=True)
+    key_in_source = models.CharField(max_length=255, blank=True, null=True, choices=KEY_IN_SOURCE_CHOICES)
+    lines_in_source = models.CharField(max_length=255, blank=True, null=True, choices=LINES_IN_SOURCE_CHOICES)
+    attritbuted_person_text_in_source = models.ForeignKey('Person', blank=True, null=True, related_name='attritbuted_person_text_in_source', on_delete=models.CASCADE)
+    attritbuted_person_music_in_source = models.ForeignKey('Person', blank=True, null=True, related_name='attritbuted_person_music_in_source', on_delete=models.CASCADE)
+    attribution_text_in_source = models.CharField(max_length=255, blank=True, null=True)
+    attribution_music_in_source = models.CharField(max_length=255, blank=True, null=True)
+
+
 class OSHPrintingSequence(models.Model):
     sequence_name = models.CharField(max_length=255, blank=False, null=True)
     book_1 = models.ForeignKey('Book', help_text='ID of a printing unless first printing', blank=True, null=True, related_name = 'book_1', on_delete=models.CASCADE)
