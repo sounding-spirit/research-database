@@ -1,6 +1,6 @@
 from django.contrib import admin
-from app.models import Page, TextUnit, Song, Book, Contributor, SourceRelationship, OSHPrintingSequence, PrintingRelationship, Contribution, Person
-from app.forms import SourceRelationshipAdminForm, PrintingRelationshipAdminForm
+from app.models import Page, TextUnit, Song, Book, Contributor, TextSourceRelationship, OSHPrintingSequence, PrintingRelationship, Contribution, Person
+from app.forms import TextSourceRelationshipAdminForm, PrintingRelationshipAdminForm
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -26,9 +26,9 @@ class BookAdmin(admin.ModelAdmin):
 class ContributorAdmin(admin.ModelAdmin):
     list_display = ('last_name', 'first_name', 'book', 'birth_year', 'death_year', 'committee', 'subcommittee')
 
-class SourceRelationshipAdmin(admin.ModelAdmin):
+class TextSourceRelationshipAdmin(admin.ModelAdmin):
     list_display = ('book', 'song', 'text_unit', 'sr_category', 'sr_type')
-    form = SourceRelationshipAdminForm
+    form = TextSourceRelationshipAdminForm
 
 class OSHPrintingSequenceAdmin(admin.ModelAdmin):
     list_display = ('sequence_name', 'book_1', 'book_2')
@@ -48,7 +48,7 @@ admin.site.register(TextUnit, TextUnitAdmin)
 admin.site.register(Song, SongAdmin)
 admin.site.register(Book, BookAdmin)
 admin.site.register(Contributor, ContributorAdmin)
-admin.site.register(SourceRelationship, SourceRelationshipAdmin)
+admin.site.register(TextSourceRelationship, TextSourceRelationshipAdmin)
 admin.site.register(OSHPrintingSequence, OSHPrintingSequenceAdmin)
 admin.site.register(PrintingRelationship, PrintingRelationshipAdmin)
 admin.site.register(Contribution, ContributionAdmin)

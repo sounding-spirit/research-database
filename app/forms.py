@@ -1,9 +1,9 @@
 from django import forms
-from app.models import SourceRelationship, PrintingRelationship
+from app.models import TextSourceRelationship, PrintingRelationship
 
-class SourceRelationshipAdminForm(forms.ModelForm):
+class TextSourceRelationshipAdminForm(forms.ModelForm):
     class Meta:
-        model = SourceRelationship
+        model = TextSourceRelationship
         fields = '__all__'
 
     def clean(self):

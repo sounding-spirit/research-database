@@ -182,13 +182,11 @@ class Contributor(models.Model):
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
-class SourceRelationship(models.Model):
+class TextSourceRelationship(models.Model):
     CATEGORY_CHOICES = (
         ('scriptural citation', 'scriptural citation'),
         ('attribution', 'attribution'),
-        ('song', 'song'),
         ('hymn', 'hymn'),
-        ('alto', 'alto'),
         ('historical note', 'historical note'),
         ('other content', 'other content'),
     )
