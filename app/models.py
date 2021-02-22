@@ -121,8 +121,8 @@ class Song(models.Model):
     lines = models.PositiveIntegerField(blank=False, null=True, choices=LINES_CHOICES)
     key = models.CharField(max_length=255, blank=True, null=True, choices=KEY_CHOICES)
     mode = models.CharField(max_length=255, blank=True, null=True, choices=MODE_CHOICES)
-    attributed_person_text = models.ForeignKey('Person', blank=True, null=True, related_name='attributed_person_text', on_delete=models.CASCADE)
-    attributed_person_music = models.ForeignKey('Person', blank=True, null=True, related_name='attributed_person_music', on_delete=models.CASCADE)
+    attributed_person_text = models.ManyToManyField('Person', blank=True, related_name='attributed_person_text')
+    attributed_person_music = models.ManyToManyField('Person', blank=True, related_name='attributed_person_music')
     attribution_text = models.CharField(max_length=255, blank=True, null=True)
     attribution_music = models.CharField(max_length=255, blank=True, null=True)
 
@@ -246,8 +246,8 @@ class SongSourceRelationship(models.Model):
     page_in_source = models.CharField(max_length=255, blank=True, null=True)
     key_in_source = models.CharField(max_length=255, blank=True, null=True, choices=KEY_IN_SOURCE_CHOICES)
     lines_in_source = models.CharField(max_length=255, blank=True, null=True, choices=LINES_IN_SOURCE_CHOICES)
-    attritbuted_person_text_in_source = models.ForeignKey('Person', blank=True, null=True, related_name='attritbuted_person_text_in_source', on_delete=models.CASCADE)
-    attritbuted_person_music_in_source = models.ForeignKey('Person', blank=True, null=True, related_name='attritbuted_person_music_in_source', on_delete=models.CASCADE)
+    attributed_person_text_in_source = models.ManyToManyField('Person', blank=True, related_name='attributed_person_text_in_source')
+    attributed_person_music_in_source = models.ManyToManyField('Person', blank=True, related_name='attributed_person_music_in_source')
     attribution_text_in_source = models.CharField(max_length=255, blank=True, null=True)
     attribution_music_in_source = models.CharField(max_length=255, blank=True, null=True)
 
@@ -255,16 +255,16 @@ class SongSourceRelationship(models.Model):
 class OSHAddedAlto(models.Model):
     song = models.ForeignKey('Song', blank=False, null=True, on_delete=models.CASCADE)
     page_in_ch = models.PositiveIntegerField(blank=True, null=True)
-    attributed_person_in_ch = models.ForeignKey('Person', blank=True, null=True, related_name='attritbuted_person_in_ch', on_delete=models.CASCADE)
+    attributed_person_in_ch = models.ManyToManyField('Person', blank=True, related_name='attritbuted_person_in_ch')
     attribution_in_ch = models.CharField(max_length=255, blank=True, null=True)
     page_in_cooper_sh = models.PositiveIntegerField(blank=True, null=True)
-    attributed_person_in_cooper_sh = models.ForeignKey('Person', blank=True, null=True, related_name='attritbuted_person_in_cooper_sh', on_delete=models.CASCADE)
+    attributed_person_in_cooper_sh = models.ManyToManyField('Person', blank=True, related_name='attritbuted_person_in_cooper_sh')
     attribution_in_cooper_sh = models.CharField(max_length=255, blank=True, null=True)
     page_in_white_sh = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True)
-    attributed_person_in_white_sh = models.ForeignKey('Person', blank=True, null=True, related_name='attributed_person_in_white_sh', on_delete=models.CASCADE)
+    attributed_person_in_white_sh = models.ManyToManyField('Person', blank=True, related_name='attributed_person_in_white_sh')
     attribution_in_white_sh = models.CharField(max_length=255, blank=True, null=True)
     page_in_nhc = models.PositiveIntegerField(blank=True, null=True)
-    attributed_person_in_nhc = models.ForeignKey('Person', blank=True, null=True, related_name='attributed_person_in_nhc', on_delete=models.CASCADE)
+    attributed_person_in_nhc = models.ManyToManyField('Person', blank=True, related_name='attributed_person_in_nhc')
     attribution_in_nhc = models.CharField(max_length=255, blank=True, null=True)
 
 
@@ -307,7 +307,7 @@ class AltoSourceRelationship(models.Model):
     page_in_source = models.CharField(max_length=255, blank=True, null=True)
     key_in_source = models.CharField(max_length=255, blank=True, null=True, choices=KEY_IN_SOURCE_CHOICES)
     mode_in_source = models.CharField(max_length=255, blank=True, null=True, choices=MODE_CHOICES)
-    attributed_person_in_source = models.ForeignKey('Person', blank=True, null=True, on_delete=models.CASCADE)
+    attributed_person_in_source = models.ManyToManyField('Person', blank=True)
     attribution_in_source = models.CharField(max_length=255, blank=True, null=True)
 
 

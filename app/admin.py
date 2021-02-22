@@ -19,6 +19,7 @@ class TextUnitAdmin(admin.ModelAdmin):
 class SongAdmin(ImportExportModelAdmin):
     resource_class = SongResource
     list_display = ('id', 'page_start', 'page_end', 'title', 'lines')
+    filter_horizontal = ('attributed_person_text', 'attributed_person_music')
 
 class BookAdmin(admin.ModelAdmin):
     list_display = ('abbreviated_title', 'year_range_start', 'year_range_end', 'year_certainty', 'place', 'publisher', 'author_editor')
@@ -45,12 +46,15 @@ class PersonAdmin(admin.ModelAdmin):
 
 class SongSourceRelationshipAdmin(admin.ModelAdmin):
     list_display = ('id', 'song', 'book', 'sr_type', 'title_in_source', 'page_in_source')
+    filter_horizontal = ('attributed_person_text_in_source', 'attributed_person_music_in_source')
 
 class OSHAddedAltoAdmin(admin.ModelAdmin):
     list_display = ('id', 'song')
+    filter_horizontal = ('attributed_person_in_ch', 'attributed_person_in_cooper_sh', 'attributed_person_in_white_sh', 'attributed_person_in_nhc')
 
 class AltoSourceRelationshipAdmin(admin.ModelAdmin):
     list_display = ('id', 'osh_added_alto', 'book')
+    filter_horizontal = ('attributed_person_in_source',)
 
 admin.site.register(Page, PageAdmin)
 admin.site.register(TextUnit, TextUnitAdmin)
